@@ -1,0 +1,16 @@
+body { 
+    background: url(/Data/background.jpg);
+}
+.visualiser-container {
+    position: absolute;
+    bottom: 450px;
+    right: 0;
+    left: 0;
+    text-align: center;
+}
+.visualiser-container-bar {       
+    display: inline-block;
+    background-color: white;
+    margin: 0 2px;
+    width: 25px;
+}

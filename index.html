@@ -1,75 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/style.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualiser</title>
-    <style>
-    body { 
-        background: url(background.jpg);
-    }
-    .visualiser-container {
-        position: absolute;
-        bottom: 450px;
-        right: 0;
-        left: 0;
-        text-align: center;
-    }
-    .visualiser-container-bar {
-
-        display: inline-block;
-        background: white;
-        margin: 0 2px;
-        width: 25px;
-    }
-</style>
 </head>
 <body>
-    <audio id="myAudio" src="track.wav" controls></audio>
-    <div class="background"></div>    
+    <audio id="myAudio" src="Data/track.wav" controls></audio>
     <div class="visualiser-container"></div>
-
-    <script>
-        (function() {
-            const audio = document.querySelector("audio");
-            const audioContext = new AudioContext();
-            const numberOfBars = 60;
-            const audioSource = audioContext.createMediaElementSource(audio);
-            const analyser = audioContext.createAnalyser();
-
-            audioSource.connect(analyser);
-            audioSource.connect(audioContext.destination);
-            
-            const frequencyData = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(frequencyData);
-            console.log("frequencyData", frequencyData);
-            
-            const visualiserContainer = document.querySelector(".visualiser-container");
-
-            for( let i = 0; i < numberOfBars; i++) {
-                const bar = document.createElement("DIV");
-                bar.setAttribute("id", "bar" + i );
-                bar.setAttribute("class", "visualiser-container-bar");
-                visualiserContainer.appendChild(bar);
-            }
-
-            function renderFrame() {
-                analyser.getByteFrequencyData(frequencyData);
-
-                for( let i = 0; i< numberOfBars; i++) {
-                    const data = frequencyData[i];
-                    const bar = document.querySelector("#bar" + i);
-                    if(!bar){
-                        continue;
-                    }
-                    const barHeight = Math.max(4, data || 0);
-                    bar.style.height = barHeight + "px";
-                }
-                window.requestAnimationFrame(renderFrame);
-            }
-            renderFrame();
-        })();
-    </script>
+    <script src=script.js></script>
 </body>
 </html>
