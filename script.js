@@ -1,6 +1,6 @@
 const audio = document.querySelector("audio");
 const audioContext = new AudioContext();
-const numberOfBars = 60;
+const numberOfBars = 100;
 const audioSource = audioContext.createMediaElementSource(audio);
 const analyser = audioContext.createAnalyser();
 
@@ -29,10 +29,9 @@ function renderFrame() {
         if(!bar){
             continue;
         }
-        const barHeight = Math.max(4, data || 0);
+        const barHeight = Math.max(4, data * 5 || 0);
         bar.style.height = barHeight + "px";
-        const barColour = 
-        bar.style.backgroundColor = `rgb(${barHeight + 100}, ${barHeight + 50}, ${barHeight + 200})`;   
+        bar.style.backgroundColor = `rgb(${data - barHeight - 100}, ${barHeight - data - 100}, ${data - barHeight - 200})`;         
     }
     window.requestAnimationFrame(renderFrame);
 }
