@@ -8,8 +8,13 @@
     <title>Visualiser</title>
 </head>
 <body>
-    <audio id="myAudio" src="Data/track.wav" controls></audio>
     <div class="visualiser-container"></div>
+    <audio id="myAudio" src="Data/track.wav" controls></audio>
+    <div>
+        <input onchange="updateSmoothness(this.value)" type="range" id="smoothess" name="smoothess"
+               min="0.7" max="1" step="0.01">
+        <label for="smoothess">Smoothness</label>
+      </div>
     <script src=script.js></script>
 </body>
 </html>

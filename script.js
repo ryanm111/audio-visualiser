@@ -3,6 +3,7 @@ const audioContext = new AudioContext();
 const numberOfBars = 100;
 const audioSource = audioContext.createMediaElementSource(audio);
 const analyser = audioContext.createAnalyser();
+let smoothingConstant = 0;
 
 audioSource.connect(analyser);
 audioSource.connect(audioContext.destination);
@@ -29,10 +30,19 @@ function renderFrame() {
         if(!bar){
             continue;
         }
-        const barHeight = Math.max(4, data * 5 || 0);
+        let barHeight = (Math.max( data * 5 ) + bar.offsetHeight) / 2;
+        if( i != 0 && i < 99){
+            const previousBar = document.querySelector("#bar" + (i-1));
+            const nextBar = document.querySelector("#bar" + (i+1));
+            barHeight = ((previousBar.offsetHeight + nextBar.offsetHeight) / 2) * smoothingConstant + barHeight * (1 - smoothingConstant); 
+        }
         bar.style.height = barHeight + "px";
-        bar.style.backgroundColor = `rgb(${data - barHeight - 100}, ${barHeight - data - 100}, ${data - barHeight - 200})`;         
+        bar.style.backgroundColor = `hsl(${barHeight}, 50%, 50%)`;
     }
     window.requestAnimationFrame(renderFrame);
 }
+
+function updateSmoothness(smoothness){
+    smoothingConstant = smoothness;
+};
 renderFrame();
