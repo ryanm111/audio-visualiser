@@ -1,9 +1,14 @@
+
+
 const audio = document.querySelector("audio");
 const audioContext = new AudioContext();
 const numberOfBars = 100;
 const audioSource = audioContext.createMediaElementSource(audio);
 const analyser = audioContext.createAnalyser();
 let smoothingConstant = 0;
+function updateSmoothness(smoothness){
+    smoothingConstant = smoothness;
+};
 
 audioSource.connect(analyser);
 audioSource.connect(audioContext.destination);
@@ -21,6 +26,11 @@ for( let i = 0; i < numberOfBars; i++) {
     visualiserContainer.appendChild(bar);
 }
 
+
+
+
+
+renderFrame();
 function renderFrame() {
     analyser.getByteFrequencyData(frequencyData);
 
@@ -40,9 +50,4 @@ function renderFrame() {
         bar.style.backgroundColor = `hsl(${barHeight}, 50%, 50%)`;
     }
     window.requestAnimationFrame(renderFrame);
-}
-
-function updateSmoothness(smoothness){
-    smoothingConstant = smoothness;
 };
-renderFrame();
