@@ -10,7 +10,6 @@ body {
     grid-auto-flow: column;
     overflow: hidden;
     align-items: flex-end;
-
 }
 .visualiser-container-bar {       
     display: inline-block;
